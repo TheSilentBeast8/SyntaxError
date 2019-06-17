@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+<h2>Autocomplete</h2>
+
+<p>Start typing:</p>
+
+<!--Make sure the form has the autocomplete function switched off:-->
+<form autocomplete="off" action="/action_page.php">
+  <div class="autocomplete" style="width:300px;">
+    <input id="myInput" type="text" name="myCountry" placeholder="Location">
+  </div>
+  <input type="submit">
+</form>
+
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+/*An array containing all the country names in the world:*/
+var countries = ["Bishan East", "Marymount","Upper Thomson","Alexandra Hill","Alexandra North","Bukit Ho Swee","Bukit Merah","City Terminals","Depot Road","Everton Park","Henderson Hill","Kampong Tiong Bahru","Maritime Square","Redhill","Singapore General Hospital","Telok Blangah Drive","Telok Blangah Rise","Telok Blangah Way","Tiong Bahru","Tiong Bahru Station","Anak Bukit","Coronation Road","Farrer Court","Hillcrest","Holland Road","Leedon Park","Swiss Club","Ulu Pandan","Anson","Bayfront","Bugis","Cecil","Central","City Hall","Clifford Pier","Marina Centre","Maxwell","Phillip","Raffles Place","Tanjong Pagar","Aljunied","Geylang East","Kallang Way","MacPherson","Kampong Ubi","Bendemeer","Boon Keng","Crawford","Geylang Bahru","Kallang Bahru","Kampong Bugis","Kampong Java","Lavender","Tanjong Rhu","Marina East","Marina South","East Coast","Katong","Marina East","Marine Parade","Mountbatten","Bras Basah","Dhoby Ghaut","Fort Canning","Cairnhill","Goodwood Park","Istana Negara","Monk's Hill","Newton Circus","Orange Grove","Balestier","Dunearn","Malcolm","Moulmein","Mount Pleasant","Boulevard","Somerset","Tanglin","China Square","Chinatown","Pearl's Hill","People's Park","Commonwealth","Dover","Ghim Moh","Holland Drive","Kent Ridge","Margaret Drive","Mei Chin","National University of Singapore","One-North","Pasir Panjang 1","Pasir Panjang 2","Port","Queensway","Singapore Polytechnic","Tanglin Halt","Institution Hill","Leonie Hill","One Tree Hill","Oxley","Paterson","Bencoolen","Farrer Park","Kampong Glam","Little India","Mackenzie","Mount Emily","Rochor Canal","Selegie","Sungei Road","Victoria","Boat Quay","Clarke Quay","Robertson Quay","Southern Islands","Straits View","Chatsworth","Nassim","Ridout","Tyersall","Bidadari","Boon Teck","Braddell","Joo Seng","Kim Keat","Lorong 8 Toa Payoh","Pei Chun","Potong Pasir","Sennett","Toa Payoh Central","Toa Payoh West","Woodleigh","Bayshore","Bedok North","Bedok Reservoir","Bedok South","Frankel","Kaki Bukit","Kembangan","Siglap","Changi Airport","Changi Point","Changi West","Changi Bay","Flora Drive","Loyang East","Loyang West","Pasir Ris Central","Pasir Ris Drive","Pasir Ris Park","Pasir Ris Wafer Fab Park","Pasir Ris West","Airport Road","Paya Lebar East","Paya Lebar North","Paya Lebar West","PLAB","Simei","Tampines East","Tampines North","Tampines West","Xilin","Central Water Catchment","Lim Chu Kang","Mandai East","Mandai Estate","Mandai West","Admiralty","Sembawang Central","Sembawang East","Sembawang North","Sembawang Spring","Sembawang Straits","Senoko North","Senoko South","The Wharves","Pulau Seletar","Simpang North","Simpang South","Tanjong Irau","Gali Batu","Kranji","Pang Sua","Reservoir View","Turf Club","Greenwood Park","Midview","North Coast","Senoko West","Woodgrove","Woodlands East","Woodlands Regional Centre","Woodlands South","Woodlands West","Khatib","Lower Seletar","Nee Soon","Northland","Springleaf","Yishun Central","Yishun East","Yishun South","Yishun West","Ang Mo Kio Town Centre","Cheng San","Chong Boon","Kebun Baru","Sembawang Hills","Shangri-La","Tagore","Townsville","Yio Chu Kang","Yio Chu Kang East","Yio Chu Kang North","Yio Chu Kang West","Defu Industrial Park","Hougang Central","Hougang East","Hougang West","Kangkar","Kovan","Lorong Ah Soo","Lorong Halus","Tai Seng","Trafalgar","North-Eastern Islands","Coney Island","Matilda","Northshore","Punggol Canal","Punggol Field","Punggol Town Centre","Waterway East","Pulau Punggol Barat","Pulau Punggol Timor","Seletar","Seletar Aerospace Park","Anchorvale","Compassvale","Fernvale","Lorong Halus North","Rivervale","Sengkang Town Centre","Sengkang West","Lorong Chuan","Seletar Hills","Serangoon Central","Serangoon Garden","Serangoon North","Serangoon North IndustrialEstate","Upper Paya Lebar","Liu Fang","Samulun","Shipyard","Tukang","Brickworks","Bukit Batok Central","Bukit Batok East","Bukit Batok West","Gombak","Guilin","Hillview","Hong Kah North","Bangkit","Dairy Farm","Fajar","Jelebu","Nature Reserve","Saujana","Senja","Choa Chu Kang Central","Choa Chu Kang North","Keat Hong","Peng Siang","Teck Whye","Yew Tee","Clementi","Clementi Central","Clementi North","Clementi West","Clementi Woods","Faber","Pandan", "Sunset Way", "Toh Tuck", "West Coast", "International Business Park","Jurong Gateway","Jurong Port","Jurong River","Lakeside", "Penjuru Crescent", "Teban Gardens", "Toh Guan", "Yuhua East", "Yuhua West", "Boon Lay Place", "Chin Bee", "Hong Kah", "Jurong West Central", "Kian Teck", "Safti", "Taman Jurong", "Wenya", "Yunnan", "Benoi Sector", "Gul Basin", "Gul Circle", "Joo Koon", "Pioneer Sector", "Tengah", "Tengeh", "Tuas Bay", "Tuas North", "Tuas Promenade","Tuas View","Tuas View Extension Jurong Island and Bukum","Semakau","Sudong","Western Water Catchmen"];
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+autocomplete(document.getElementById("myInput"), countries);
+</script>
+
+</body>
+</html>
