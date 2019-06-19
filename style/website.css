@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+
+
 
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
@@ -221,5 +224,27 @@ _:-ms-input-placeholder, :root .demo-graph {
 
 .mdl-layout__content{
   text-align: center;
-  padding-top: 30px;
 }
+
+span.mdl-layout-title {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 45px;
+  padding-left: 488px;
+  color: yellow;
+  text-shadow: 3px 3px #0000ff;
+}
+.mdl-layout__header-row {
+  height: 90px;
+  background-image: url(https://media1.tenor.com/images/60157df2e8b6340b3679c5e08bdf837d/tenor.gif?itemid=6037810);
+}
+
+nav {
+  background-image: linear-gradient(black, #5975c1);
+
+}
+
+.demo-drawer-header{
+  background-image: linear-gradient(white, black);
+}
+
+.material-icons.white600 { color: white; }

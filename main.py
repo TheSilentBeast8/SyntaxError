@@ -10,10 +10,32 @@ the_jinja_env = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+class Welcome(webapp2.RequestHandler):
+    def get(self):
+        main_template = the_jinja_env.get_template('templates/homepage.html')
+        self.response.write(main_template.render())
+
 class MainHandler(webapp2.RequestHandler):
+    def get(self):
+        main_template = the_jinja_env.get_template('templates/website.html')
+        self.response.write(main_template.render())
+
+class SocialMedia(webapp2.RequestHandler):
+    def get(self):
+        main_template = the_jinja_env.get_template('templates/socialmedia.html')
+        self.response.write(main_template.render())
+
+class Traffic(webapp2.RequestHandler):
+    def get(self):
+        welcome_template = the_jinja_env.get_template('templates/index.html')
+        self.response.write(welcome_template.render())
+
+
+class WeatherHandler(webapp2.RequestHandler):
     def get(self):
         welcome_template = the_jinja_env.get_template('templates/welcome.html')
         self.response.write(welcome_template.render())
+
 
     def post(self):
         welcome_template = the_jinja_env.get_template('templates/welcome.html')
@@ -54,6 +76,9 @@ class MainHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-
+    ('/', Welcome),
+    ('/welcome', MainHandler),
+    ('/weather', WeatherHandler),
+    ('/sm', SocialMedia),
+    ('/traffic', Traffic),
 ], debug=True)
