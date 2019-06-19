@@ -19,7 +19,27 @@ the_jinja_env = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         welcome_template = the_jinja_env.get_template('templates/bustimings.html')
-        self.response.write(welcome_template.render())
+        headers = { 'AccountKey' : 'PZ7R2qzGS9KP2AhLyq5Bkw==',
+        'accept' : 'application/json'} #this is by default
+
+        #API parameters
+        endpointUrl1 = 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts' #Resource URL
+        #Build query string & specify type of API call
+        response1 = urlfetch.fetch(endpointUrl1,headers=headers)
+
+        content1 = response1.content
+
+        response_as_json1 = json.loads(content1)
+        print(response_as_json1)
+        print(response_as_json1['value']['Status'])
+        if response_as_json1['value']['Status'] == 1:
+            train_message = 'Train service is as per normal now.'
+        else:
+            train_message = response_as_json1['value']['Message']
+
+
+        train = {'train_message':train_message}
+        self.response.write(welcome_template.render(train))
 
     def post(self):
         with open('busstops_new.json') as data_file:
@@ -39,6 +59,9 @@ class MainHandler(webapp2.RequestHandler):
         content = response.content
 
         response_as_json = json.loads(content)
+
+
+
         #print(response_as_json)
         time_zone = pytz.timezone('Asia/Singapore')
 
