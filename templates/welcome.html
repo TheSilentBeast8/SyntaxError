@@ -3,17 +3,20 @@
   <head>
     <title>Weather forecast</title>
       <link rel= "stylesheet" type="text/css" href="/style/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+
   </head>
   <body>
-    <h1>Welcome to weather forecast!</h1>
+    <h1>Welcome to Weather Forecast</h1>
     <form id="weather-form" method="post" action = "/weather">
     <!-- <form id="weather-form" method="post" onSubmit="return onSubmit()"> -->
-      For what date(YYY-MM-DD)<br>
+      <div class="uwu">For what date(YYYY-MM-DD)</div>
       <input id="date" type="date" name="date" value="{{date}}">
-      What time(Ex. 23:59)<br>
-      <input id="time" type="time" name="time" value="{{time}}">
+      <input id="time" type="time" name="time" value="{{time}}"> What time(Ex.23:59)
+      <br>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <div class="autocomplete" style="width:300px;">
+        <br>
         <input id="location" type="text" name="location" value="{{location}}" placeholder="Location" autocomplete="off">
       </div>
   <input type="submit" value="Go!">

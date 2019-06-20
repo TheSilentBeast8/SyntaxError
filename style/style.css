@@ -1,7 +1,24 @@
-
-
+h1 {
+  text-align: center;
+  font-family: 'Inconsolata', monospace;
+  font-size: 40px;
+  
+  color: white;
+  text-shadow: 2px 2px 2px #6B2323;
+}
+body {
+  background-image: url(https://www.channelfutures.com/files/2014/12/cloud-and-sun-2_0.jpg);
+}
+.uwu {
+  padding-right: 310px;
+  color: white;
+}
+ {
+  color: white;
+}
 * {
 box-sizing: border-box;
+text-align: center;
 }
 body {
 font: 16px Arial;
@@ -12,11 +29,13 @@ position: relative;
 display: inline-block;
 }
 input {
-border: 1px solid transparent;
+border-radius: 25px;
 background-color: #f1f1f1;
-padding: 10px;
+padding: 15px;
 font-size: 16px;
 }
+
+
 input[type=text] {
 background-color: #f1f1f1;
 width: 100%;
