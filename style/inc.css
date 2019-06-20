@@ -1,0 +1,33 @@
+h1 {
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+  font-size: 40px;
+  color: orange;
+  text-shadow: 3px 3px #411919;
+}
+.trafficc {
+  padding-left: 260px;
+}
+p {
+  padding-left: 260px;
+  color: white;
+}
+b {
+  padding-left: 260px;
+  color: white;
+  text-shadow: 3px 3px #000000;
+}
+a {
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+.words {
+  padding-left: 260px;
+  color: white;
+  text-shadow: 3px 3px #000000;
+
+}
+html {
+  background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/44760wide.jpg);
+  background-size: 1450px 850px;
+}
