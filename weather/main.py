@@ -36,7 +36,7 @@ class MainHandler(webapp2.RequestHandler):
         response_as_json = json.loads(content)
         print(len(response_as_json['area_metadata']))
         if len(response_as_json['area_metadata']) == 0:
-            details = "The weather forecast only predicts for the next 24h!Please try again!"
+            details = "The weather forecast only predicts for the next 24h! Please try again!"
             info = {'details':details
             }
         else:
