@@ -30,7 +30,7 @@ class SocialMedia(webapp2.RequestHandler):
 
 class Traffic(webapp2.RequestHandler):
     def get(self):
-        welcome_template = the_jinja_env.get_template('templates/index.html')
+        welcome_template = the_jinja_env.get_template('templates/trafficimages.html')
         self.response.write(welcome_template.render())
 
 
