@@ -2,22 +2,23 @@
 <html>
   <head>
     <title>bus timing</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel= "stylesheet" type="text/css" href="style/bus.css">
   </head>
   <body>
     <h1>Welcome to Public Transport update!</h1>
-    <h2>Train Service Update:</h2>
-    <h2>{{train_message}}</h2>
+    <h2>Train Service Update:</h2> <h2>{{train_message}}</h2>
     <form id="weather-form" method="post" action = "/bus">
     <!-- <form id="weather-form" method="post" onSubmit="return onSubmit()"> -->
       Bus Stop ID<br>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <div class="autocomplete" style="width:300px;">
         <input id="stopName" type="text" name="stopid" value="{{stopid}}" placeholder="Bus Stop Name" autocomplete="off">
-
       </div>
-  <input type="submit" value="Go!">
+      <input type="submit" value="Go!">
+
 </form>
+
 {% for x in range(busno|length) %}
 <div>
   <span>

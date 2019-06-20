@@ -6,17 +6,15 @@ p{
 }
 
 .traffic{
-  width: 500px;
+  width: 600px;
   height: 500px;
-  display: flex;
-  justify-content: space-between;
+  padding-right: 70px;
+  padding-left: 50px;
 }
 
 .waze{
-  width: 500px;
+  width: 600px;
   height: 500px;
-  display: flex;
-  justify-content: space-between;
 }
 
 body{
