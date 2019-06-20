@@ -3,19 +3,21 @@
   <head>
     <title>bus timing</title>
       <link rel= "stylesheet" type="text/css" href="style/inc.css">
+      <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+
   </head>
   <body>
     <h1>Welcome to Traffic News!</h1>
-    <iframe width="900" height="600" src="https://data.gov.sg/dataset/traffic-images/resource/e127e29a-bd48-47e2-a0a7-e89ce31f10c7/view/39ba8de0-6242-40d3-8664-793316c47b09" frameBorder="0"> </iframe>
-    <div>Live traffic incidents feed:</div>
+    <iframe class="trafficc" width="900" height="600" src="https://data.gov.sg/dataset/traffic-images/resource/e127e29a-bd48-47e2-a0a7-e89ce31f10c7/view/39ba8de0-6242-40d3-8664-793316c47b09" frameBorder="0"> </iframe>
+    <div class="words">Live traffic incidents feed:</div>
     {% for x in range(details|length) %}
     <div>
       <span>
       <b>{{type[x]}}: </b>
       </span>
-      {{details[x]}}
+      <a>{{details[x]}}</a>
     </div>
-    {% endfor %}
+    <p>{% endfor %}</p>
 
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

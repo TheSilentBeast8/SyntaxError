@@ -5,11 +5,13 @@ p{
   font-family: 'Righteous', cursive;
 }
 
+
 .traffic{
   width: 600px;
   height: 500px;
-  padding-right: 70px;
-  padding-left: 50px;
+  padding-right: 50px;
+  padding-left: 50px
+
 }
 
 .waze{
