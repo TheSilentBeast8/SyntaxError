@@ -4,12 +4,13 @@ b {
 
 
 a{
-  text-shadow: 3px 3px 3px grey;
+  text-shadow: 3px 3px 3px black;
 }
 
 .w3-display-bottomleft{
   font-size: 30px;
   color: white;
+  text-shadow: 3px 3px 3px red;
 }
 
 .btn {
@@ -28,3 +29,7 @@ a{
 /* On mouse-over */
 .btn:hover {background: black;}
 .redirect {color: red;}
+
+p{
+  text-shadow: 3px 3px 3px black;
+}
