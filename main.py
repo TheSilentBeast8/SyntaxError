@@ -59,22 +59,27 @@ class WeatherHandler(webapp2.RequestHandler):
         content = response.content
 
         response_as_json = json.loads(content)
-        forecasts = response_as_json['items'][0]['forecasts']
-        #print(forecasts)
-        forecast = ''
-        for data in forecasts:
-            if data['area'] == location:
-                forecast = data['forecast']
-                break
+        print(len(response_as_json['area_metadata']))
+        if len(response_as_json['area_metadata']) == 0:
+            details = "The weather forecast only predicts for the next 24h! Please try again!"
+            info = {'details':details
+            }
+        else:
+            forecasts = response_as_json['items'][0]['forecasts']
+            forecast = ''
+            for data in forecasts:
+                if data['area'] == location:
+                    forecast = data['forecast']
+                    break
 
-        info = {
-            "forecast":"Forecast at "+location+' on '+date+' '+time+' shows '+ forecast +' weather',
-            "location": location,
-            "time": time,
-            "date": date,
-        }
-
+            info = {
+                "forecast":"Forecast at "+location+' on '+date+' '+time+' shows '+ forecast +' weather',
+                "location": location,
+                "time": time,
+                "date": date,
+            }
         self.response.write(welcome_template.render(info))
+
 
 class BusTimings(webapp2.RequestHandler):
     def get(self):
