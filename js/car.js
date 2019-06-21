@@ -18,7 +18,7 @@ function autocomplete(inp, arr) {
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
 
-    let maxElementsToShow = 14;
+    let maxElementsToShow = 8;
     var numAppended = 0;
     for (i = 0; i < arr.length; i++) {
       /*check if the item starts with the same letters as the text field value:*/

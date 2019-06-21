@@ -80,7 +80,9 @@ html, body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  padding-left: 40px;
+  padding-left: 45px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 20px;
 }
 
 .demo-navigation {
@@ -98,11 +100,13 @@ html, body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  color: rgba(255, 255, 255, 0.56);
+  color: white;
   font-weight: 500;
+  font-family: 'Comfortaa', cursive;
+
 }
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
-  background-color: #00BCD4;
+  background-color: orange;
   color: #37474F;
 }
 .demo-navigation .mdl-navigation__link .material-icons {
